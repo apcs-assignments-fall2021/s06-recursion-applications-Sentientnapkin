@@ -19,8 +19,21 @@ public class MyMain {
 
     // Tail recursive method:
     public static boolean binarySearchTR(int[] arr, int num, int lowerBound, int upperBound) {
-        // YOUR CODE HERE
-        return false;
+        if (upperBound<lowerBound){
+            return false;
+        }
+        else {
+            int middle = (upperBound+lowerBound)/2;
+            if (arr[middle]==num){
+                return true;
+            }
+            else if (arr[middle]>num){
+                return binarySearchTR(arr,num,lowerBound,middle-1);
+            }
+            else {
+                return binarySearchTR(arr,num,middle+1,upperBound);
+            }
+        }
     }
 
 
@@ -68,7 +81,34 @@ public class MyMain {
     // Then we need to copy the rest of the array
 
     public static int[] merge(int[] arr1, int[] arr2) {
-        // YOUR CODE HERE
-        return null;
+        int[] merge = new int[arr1.length+arr2.length];
+        int idx1 = 0;
+        int idx2 = 0;
+        int outputIdx = 0;
+        while(outputIdx<merge.length){
+            if(idx1>=arr1.length){
+                for(int i = idx2;i<arr2.length;i++){
+                    merge[outputIdx]=arr2[i];
+                    outputIdx++;
+                }
+            }
+            else if(idx2>=arr2.length){
+                for(int i = idx1;i<arr1.length;i++){
+                    merge[outputIdx]=arr1[i];
+                    outputIdx++;
+                }
+            }
+            else if(arr1[idx1]<arr2[idx2]){
+                merge[outputIdx]=arr1[idx1];
+                outputIdx++;
+                idx1++;
+            }
+            else {
+                merge[outputIdx]=arr2[idx2];
+                idx2++;
+                outputIdx++;
+            }
+        }
+        return merge;
     }
 }

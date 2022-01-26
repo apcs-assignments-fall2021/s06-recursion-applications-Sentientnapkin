@@ -41,8 +41,11 @@ public class Folder implements FileItem {
     // file1 which is size 200, file2 which is size 300, and file3 which is size 150.
     // Then, the size of folder1 = 512 + 128*3 + 200 + 300 + 150 = 1546.
     public int calculateSize() {
-        // YOUR CODE HERE
-        return -1;
+        int size = 0;
+        for(FileItem file:items){
+            size+=file.calculateSize();
+        }
+        return size+512+128*items.size();
     }
 
     // Creates a copy of the current FileItem
@@ -55,8 +58,11 @@ public class Folder implements FileItem {
     // copy() method should be called on all FileItems in the folder, such
     // that the contents of the folder is copied as well.
     public FileItem copy() {
-        // YOUR CODE HERE
-        return null;
+        Folder folder = new Folder(this.folderName+"_copy");
+        for(FileItem file:items){
+            folder.addToFolder(file.copy());
+        }
+        return folder;
     }
 
     // toString method
